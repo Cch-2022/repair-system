@@ -406,18 +406,20 @@ function switchAdmin(t,el){
 // AUTH
 // ============================================================
 function doLogin(){
-  var email=document.getElementById('lEmail').value.trim();
-  var pw=document.getElementById('lPw').value;
-  var el=document.getElementById('loginAlert');
-  el.innerHTML='<div class="al al-info">⏳ กำลังตรวจสอบ...</div>';
-  dbGet('staff','email=eq.'+encodeURIComponent(email)+'&pw=eq.'+encodeURIComponent(pw)+'&select=*',function(err,data){
-    if(err||!data.length){ el.innerHTML='<div class="al al-err">❌ อีเมลหรือรหัสผ่านไม่ถูกต้อง</div>'; return; }
-    var s=data[0];
+  var email=document.getElementById("lEmail").value.trim().toLowerCase();
+  var pw=document.getElementById("lPw").value;
+  var el=document.getElementById("loginAlert");
+  el.innerHTML="<div class="al al-info">u23f3 u0e01u0e33u0e25u0e31u0e07u0e15u0e23u0e27u0e08u0e2au0e2du0e1a...</div>";
+  dbGet("staff","email=eq."+encodeURIComponent(email)+"&select=*",function(err,data){
+    if(err){ el.innerHTML="<div class="al al-err">u274c u0e40u0e0au0e37u0e48u0e2du0e21u0e15u0e48u0e2du0e10u0e32u0e19u0e02u0e49u0e2du0e21u0e39u0e25u0e44u0e21u0e48u0e44u0e14u0e49</div>"; return; }
+    var s=null;
+    for(var i=0;i<data.length;i++){ if(data[i].pw===pw){ s=data[i]; break; } }
+    if(!s){ el.innerHTML="<div class="al al-err">u274c u0e2du0e35u0e40u0e21u0e25u0e2bu0e23u0e37u0e2du0e23u0e2bu0e31u0e2au0e1cu0e48u0e32u0e19u0e44u0e21u0e48u0e16u0e39u0e01u0e15u0e49u0e2du0e07</div>"; return; }
     setSession({id:s.id,name:s.name,role:s.role,email:s.email});
-    document.getElementById('adminLabel').textContent=s.name;
-    closeModal('m-login');
-    toast('ยินดีต้อนรับ '+s.name,'ok');
-    goPage('admin');
+    document.getElementById("adminLabel").textContent=s.name;
+    closeModal("m-login");
+    toast("u0e22u0e34u0e19u0e14u0e35u0e15u0e49u0e2du0e19u0e23u0e31u0e1a "+s.name,"ok");
+    goPage("admin");
   });
 }
 function doLogout(){
